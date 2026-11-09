@@ -1,20 +1,229 @@
-# DAA4: String Algorithms
+# DAA Assignment 4 — Dynamic Programming and String Algorithms
 
-Maven project scaffold for edit-distance and string-search algorithms.
+**Student:** Satybaldy Amina  
+**Group:** SE-2517
+**Project:** City Search & Spell-Check
 
-## Project layout
+## 1. Project Description
 
-- `src/main/java/kz/aitu/daa/` — algorithm and experiment classes.
-- `src/test/java/kz/aitu/daa/` — algorithm tests.
-- `results/plots/` — generated plots.
-- `scripts/` — helper scripts.
-- `plot_results.py` — benchmark-result plotting entry point.
+This project is about Dynamic Programming and String Searching algorithms.
 
-Implement the algorithms and define the benchmark data format before adding
-tests and plotting logic.
+The main goal is to implement different algorithms, compare their performance, and understand their time and space complexity.
 
-## Build
+The project uses a city search system as an example. Users may enter street names with spelling mistakes, and the system needs to find similar words or search for patterns inside long texts.
 
-```sh
-mvn test
+The project contains five algorithms:
+
+1. Recursive Edit Distance
+2. Dynamic Programming Edit Distance (Full Table)
+3. Dynamic Programming Edit Distance (Two Rows)
+4. Naive String Search
+5. Knuth-Morris-Pratt (KMP) String Search
+
+All algorithms are implemented in Java 17.
+
+## 2. Technologies Used
+
+- Java 17
+- Maven
+- JUnit 5
+- Python 3
+- Matplotlib
+- Git and GitHub
+- IntelliJ IDEA
+
+## 3. Project Structure
+
+```text
+DAA_Assignment4/
+├── src/
+│   ├── main/java/org/example/
+│   │   ├── Main.java
+│   │   ├── EditDistance.java
+│   │   ├── StringSearch.java
+│   │   └── Experiment.java
+│   └── test/java/org/example/
+│       └── AlgorithmsTest.java
+├── results/
+│   ├── results.csv
+│   └── plots/
+│       ├── 01_recursive_calls.png
+│       ├── 02_dp_time.png
+│       ├── 03_search_comparisons.png
+│       └── 04_search_time.png
+├── plot_results.py
+├── pom.xml
+├── README.md
+└── REPORT.md
 ```
+
+## 4. Edit Distance Algorithms
+
+Edit Distance calculates the minimum number of operations needed to transform one string into another.
+
+The allowed operations are insertion, deletion, and replacement.
+
+For example:
+
+```text
+distance("kitten", "sitting") = 3
+distance("flaw", "lawn") = 2
+distance("intention", "execution") = 5
+```
+
+### Recursive Edit Distance
+
+This algorithm uses recursion without memoization. It is simple, but it repeats many calculations.
+
+Its worst-case running time is exponential.
+
+### DP Full Table
+
+This algorithm uses a two-dimensional table to store previous results.
+
+Time complexity: O(n × m)
+
+Space complexity: O(n × m)
+
+### DP Two Rows
+
+This version stores only the previous and current rows of the DP table.
+
+Time complexity: O(n × m)
+
+Space complexity: O(min(n, m))
+
+It gives the same answer as the full table but uses less memory.
+
+## 5. String Search Algorithms
+
+### Naive Search
+
+The Naive algorithm checks every possible starting position in the text.
+
+Worst-case time complexity: O(n × m)
+
+### KMP Search
+
+KMP uses the LPS (Longest Proper Prefix which is also Suffix) array to avoid unnecessary comparisons.
+
+Time complexity: O(n + m)
+
+Both algorithms return all matching positions, including overlapping matches.
+
+Example:
+
+```text
+Text: ABABABA
+Pattern: ABA
+
+Result: [0, 2, 4]
+```
+
+## 6. How to Run
+
+Open the project in IntelliJ IDEA.
+
+Make sure Java 17 or a compatible newer JDK is installed.
+
+### Run Tests
+
+```bash
+mvn clean test
+```
+
+### Run Main Program
+
+```bash
+mvn exec:java -Dexec.mainClass=org.example.Main
+```
+
+### Run Experiments
+
+```bash
+mvn exec:java -Dexec.mainClass=org.example.Experiment
+```
+
+The experiment generates:
+
+```text
+results/results.csv
+```
+
+### Generate Graphs
+
+Install Matplotlib:
+
+```bash
+python3 -m pip install matplotlib
+```
+
+Run:
+
+```bash
+python3 plot_results.py
+```
+
+Four graphs will be saved in `results/plots/`.
+
+If Maven is not available in the terminal, the Java programs and tests can also be launched using IntelliJ IDEA.
+
+## 7. Testing
+
+JUnit 5 is used to test the algorithms.
+
+The tests include:
+
+- Reference Edit Distance values
+- Empty strings
+- LPS reference arrays
+- Overlapping matches
+- Empty patterns
+- Patterns longer than the text
+- 100 random Edit Distance comparisons
+- 100 random String Search comparisons
+
+The local JUnit run completed successfully:
+
+- Tests run: 5
+- Failures: 0
+- Errors: 0
+- Skipped: 0
+
+## 8. Experimental Results
+
+The experiment compares running time and operation counts.
+
+It uses a fixed random seed to generate reproducible inputs.
+
+Each configuration is executed five times.
+
+The experiment contains 200 measured runs.
+
+The results are stored in CSV format, and four graphs are generated to visualize the performance.
+
+## 9. GitHub Repository
+
+Repository:
+
+https://github.com/wazukeed/daa4_satybaldy_amina
+
+Required branch: `main`
+
+Required final tag: `v1.0`
+
+## 10. AI Use Acknowledgement
+
+AI tools were used to help with code development, documentation, debugging, and explanations.
+
+The project was tested in IntelliJ IDEA, and the experimental results were generated by running the implemented algorithms.
+
+## 11. Conclusion
+
+In this assignment, I implemented five algorithms and compared their performance.
+
+I learned how Dynamic Programming reduces repeated calculations and how the KMP algorithm improves string searching.
+
+The experiments helped me understand the difference between theoretical complexity and measured running time.
+
+The project demonstrates why choosing an efficient algorithm is important when working with large input data.
